@@ -1,11 +1,12 @@
-package com.gabriel.integration.inve.kafka;
+package com.gabriel.integration.inve;
 
+import com.gabriel.integration.inve.kafka.KafkaApplication;
 import com.gabriel.integration.inve.kafka.KafkaProducer;
 import javafx.application.Application;
-import javafx.application.Platform;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,7 +32,13 @@ public class KafkaUI extends Application {
         kafkaProducer = context.getBean(KafkaProducer.class);
 
         TextField messageField = new TextField();
+        messageField.setPromptText("Enter message here");
+        messageField.setPrefSize(100, 20);
+
         Button sendButton = new Button("Send");
+        sendButton.setPrefSize(100, 20);
+        sendButton.setLayoutX(40);
+
 
         sendButton.setOnAction(e -> {
             String message = messageField.getText();
@@ -42,8 +49,10 @@ public class KafkaUI extends Application {
             }
         });
 
-        VBox vbox = new VBox(messageField, sendButton);
-        Scene scene = new Scene(vbox, 300, 200);
+        VBox vbox = new VBox(messageField);
+        Pane pane = new Pane();
+       vbox.getChildren().addAll(sendButton);
+        Scene scene = new Scene(vbox, 500, 300);
         primaryStage.setScene(scene);
         primaryStage.show();
     }
