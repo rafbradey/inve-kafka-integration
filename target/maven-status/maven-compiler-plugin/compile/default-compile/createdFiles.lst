@@ -1,0 +1,6 @@
+com\gabriel\integration\inve\kafka\KafkaProducer.class
+com\gabriel\integration\inve\scheduler\Scheduler.class
+com\gabriel\integration\inve\ui\KafkaUI.class
+com\gabriel\integration\inve\service\InventoryService.class
+com\gabriel\integration\inve\model\Inventory.class
+com\gabriel\integration\inve\Main.class
