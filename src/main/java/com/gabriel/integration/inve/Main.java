@@ -1,5 +1,6 @@
 package com.gabriel.integration.inve;
 
+import com.gabriel.integration.inve.kafka.KafkaUI;
 import com.gabriel.integration.inve.service.InventoryService;
 import com.gabriel.integration.inve.service.ProductService;
 import org.springframework.boot.SpringApplication;
@@ -25,6 +26,9 @@ public class Main {
             e.printStackTrace();
             System.exit(1); // Exit with a non-zero status code to indicate an error
         }
+
+        //Run Mainclass and KafkaUI
+
 
         SpringApplication.run(Main.class, args);
         System.out.println("Application started successfully");

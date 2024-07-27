@@ -6,7 +6,8 @@ import javafx.application.Application;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
+import javafx.scene.control.*;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import org.springframework.context.ApplicationContext;
@@ -35,6 +36,28 @@ public class KafkaUI extends Application {
 
         Button sendButton = new Button("Send");
         sendButton.setPrefWidth(100);
+        ListView<String> xmlList = new ListView();
+        xmlList.setPrefSize(300, 150);
+
+        TextArea textArea = new TextArea();
+        textArea.setPrefSize(300, 250);
+        textArea.setEditable(false);
+
+        try {
+            Files.list(Paths.get("src/main/java/com/gabriel/integration/inve/kafka/dumpedXML"))
+                    .filter(Files::isRegularFile)
+                    .forEach(file -> xmlList.getItems().add(file.getFileName().toString()));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        xmlList.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+            try {
+                textArea.setText(new String(Files.readAllBytes(Paths.get("src/main/java/com/gabriel/integration/inve/kafka/dumpedXML/" + newValue))));
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        });
 
         sendButton.setOnAction(e -> {
             String message = sendToAPI();
@@ -46,25 +69,51 @@ public class KafkaUI extends Application {
             }
         });
 
-        VBox vbox = new VBox(10);
-        vbox.setPadding(new Insets(20));
-        vbox.setAlignment(Pos.CENTER);
-        vbox.getChildren().add(sendButton);
+// Show list view
+        VBox vboxLT = new VBox(10);
+        vboxLT.setPadding(new Insets(20));
+        vboxLT.setAlignment(Pos.CENTER);
 
-        Scene scene = new Scene(vbox, 400, 200); // Adjusted scene dimensions
+
+        Label title = new Label("List of Dumped XML Files from the ERP");
+        vboxLT.getChildren().add(title);
+        vboxLT.getChildren().add(xmlList);
+        vboxLT.getChildren().add(textArea);
+
+
+
+
+        HBox hbox = new HBox();
+        hbox.setPadding(new Insets(20));
+        hbox.setAlignment(Pos.CENTER);
+        hbox.getChildren().add(vboxLT);
+
+        VBox mainVBox = new VBox(10);
+        mainVBox.setPadding(new Insets(20));
+        mainVBox.setAlignment(Pos.CENTER);
+        mainVBox.getChildren().addAll(hbox, sendButton);
+
+        Scene scene = new Scene(mainVBox, 400, 600);
         primaryStage.setTitle("Kafka UI");
         primaryStage.setScene(scene);
         primaryStage.show();
     }
 
     public String sendToAPI() {
+
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Successefully Published");
+        alert.setHeaderText("Notification sent to Kafka");
+        alert.showAndWait();
+
+
         String message = null;
         try {
             // Read XML file
-            String xmlPayload = new String(Files.readAllBytes(Paths.get("src/main/java/com/gabriel/integration/inve/kafka/Product.xml")));
+            String productxmlPayload = new String(Files.readAllBytes(Paths.get("src/main/java/com/gabriel/integration/inve/kafka/dumpedXML/Product.xml")));
 
 
-            String productName = xmlPayload.substring(xmlPayload.indexOf("<name>") + 6, xmlPayload.indexOf("</name>"));
+            String productName = productxmlPayload.substring(productxmlPayload.indexOf("<name>") + 6, productxmlPayload.indexOf("</name>"));
             System.out.println("Product name: " + productName);
 
             ProductService product = new ProductService();
@@ -77,7 +126,7 @@ public class KafkaUI extends Application {
             connection.setDoOutput(true);
 
             try (OutputStream os = connection.getOutputStream()) {
-                os.write(xmlPayload.getBytes());
+                os.write(productxmlPayload.getBytes());
                 os.flush();
             }
 
