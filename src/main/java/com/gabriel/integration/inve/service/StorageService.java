@@ -1,7 +1,7 @@
 package com.gabriel.integration.inve.service;
 
 import com.gabriel.integration.inve.kafka.KafkaProducer;
-import com.gabriel.integration.inve.model.Product;
+import com.gabriel.integration.inve.model.Storage;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
@@ -20,25 +20,27 @@ import java.util.List;
 
 @Service
 @Slf4j
-public class ProductService {
+public class StorageService {
 
 	@Setter
 	String port;
 
 	@Getter
-	URL productURL = new URL("http://localhost:8080/api/product");
-
+    static URL storageURL;
 
 	@Getter
-	protected static ProductService service = null;
+	protected static StorageService service = null;
 
-    public ProductService() throws MalformedURLException {
+    public StorageService(){
     }
 
-    public static ProductService getService(String port) throws MalformedURLException {
+
+    public static StorageService getService(String port) throws MalformedURLException {
 		if (service == null) {
-			service = new ProductService();
+			service = new StorageService();
 			service.port = port;
+			storageURL = new URL("http://localhost:" + port + "/api/storage");
+
 		}
 		return service;
 	}
@@ -60,58 +62,58 @@ public class ProductService {
 		return restTemplate;
 	}
 
-	public Product get(Integer id) {
-		String url = "http://localhost:" + port + "/api/product/" + Integer.toString(id);
+	public Storage get(Integer id) {
+		String url = "http://localhost:" + port + "/api/storage/" + Integer.toString(id);
 		log.info("get: " + url);
 		HttpHeaders headers = new HttpHeaders();
 		HttpEntity<?> request = new HttpEntity<>(null, headers);
-		final ResponseEntity<Product> response =
-				getRestTemplate().exchange(url, HttpMethod.GET, request, Product.class);
+		final ResponseEntity<Storage> response =
+				getRestTemplate().exchange(url, HttpMethod.GET, request, Storage.class);
 		return response.getBody();
 	}
 
-	public Product[] getAll() {
-		String url = "http://localhost:" + port + "/api/product";
-		log.info("getProducts: " + url);
+	public Storage[] getAll() {
+		String url = "http://localhost:" + port + "/api/storage";
+		log.info("getStorages: " + url);
 		HttpHeaders headers = new HttpHeaders();
 		HttpEntity<?> request = new HttpEntity<>(null, headers);
-		final ResponseEntity<Product[]> response =
-				getRestTemplate().exchange(url, HttpMethod.GET, request, Product[].class);
+		final ResponseEntity<Storage[]> response =
+				getRestTemplate().exchange(url, HttpMethod.GET, request, Storage[].class);
 		return response.getBody();
 	}
 
-	public Product create(Product product) {
-		String url = "http://localhost:" + port + "/api/product";
+	public Storage create(Storage storage) {
+		String url = "http://localhost:" + port + "/api/storage";
 		HttpHeaders headers = new HttpHeaders();
-		HttpEntity<Product> request = new HttpEntity<>(product, headers);
-		final ResponseEntity<Product> response =
-				getRestTemplate().exchange(url, HttpMethod.PUT, request, Product.class);
+		HttpEntity<Storage> request = new HttpEntity<>(storage, headers);
+		final ResponseEntity<Storage> response =
+				getRestTemplate().exchange(url, HttpMethod.PUT, request, Storage.class);
 
-		// Send a notification to Kafka when a product is created
-		kafkaProducer.sendNotification("Product created: " + product + "ID: " +
-				product.getId() + " Name: " + product.getName() +
-				" Last Updated: " + product.getLastUpdated() + " Created: "
-				+ product.getCreated());
+		// Send a notification to Kafka when a storage is created
+		kafkaProducer.sendNotification("Storage created: " + storage + "ID: " +
+				storage.getId() + " Name: " + storage.getName() +
+				" Last Updated: " + storage.getLastUpdated() + " Created: "
+				+ storage.getCreated());
 
 		return response.getBody();
 	}
 
-	public Product update(Product product) {
-		log.info("update: " + product.toString());
-		String url = "http://localhost:" + port + "/api/product";
+	public Storage update(Storage storage) {
+		log.info("update: " + storage.toString());
+		String url = "http://localhost:" + port + "/api/storage";
 		HttpHeaders headers = new HttpHeaders();
-		HttpEntity<Product> request = new HttpEntity<>(product, headers);
-		final ResponseEntity<Product> response =
-				getRestTemplate().exchange(url, HttpMethod.POST, request, Product.class);
+		HttpEntity<Storage> request = new HttpEntity<>(storage, headers);
+		final ResponseEntity<Storage> response =
+				getRestTemplate().exchange(url, HttpMethod.POST, request, Storage.class);
 		return response.getBody();
 	}
 
 	public void delete(Integer id) {
 		log.info("delete: " + Integer.toString(id));
-		String url = "http://localhost:" + port + "/api/product/" + Integer.toString(id);
+		String url = "http://localhost:" + port + "/api/storage/" + Integer.toString(id);
 		HttpHeaders headers = new HttpHeaders();
 		HttpEntity<?> request = new HttpEntity<>(null, headers);
-		final ResponseEntity<Product> response =
-				getRestTemplate().exchange(url, HttpMethod.DELETE, request, Product.class);
+		final ResponseEntity<Storage> response =
+				getRestTemplate().exchange(url, HttpMethod.DELETE, request, Storage.class);
 	}
 }

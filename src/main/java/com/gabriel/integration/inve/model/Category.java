@@ -5,7 +5,7 @@ import lombok.Data;
 import java.util.Date;
 
 @Data
-public class Product {
+public class Category {
 	private int id;
 	private String name;
 	private Date lastUpdated;

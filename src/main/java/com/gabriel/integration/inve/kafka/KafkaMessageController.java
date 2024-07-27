@@ -17,8 +17,8 @@ public class KafkaMessageController
     @PutMapping("api/product")
     public String publishMessage()
     {
-        String message = "Product published!!";
+        String message = "Category published!!";
         kafkaProducerService.sendNotification(message);
-        return "Successfully Published the Product to the ProductTopic";
+        return "Successfully Published the Category to the ProductTopic";
     }
 }
