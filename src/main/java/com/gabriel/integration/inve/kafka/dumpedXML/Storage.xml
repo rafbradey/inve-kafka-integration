@@ -1,4 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<category>
+<storage>
+    <id>1</id>
     <name>Warehouse A</name>
-</category>
+    <location>
+        <address>
+            <street>456 Industrial Rd.</street>
+            <city>Stocktown</city>
+            <state>Depot</state>
+            <zip>12345</zip>
+            <country>Countryland</country>
+        </address>
+    </location>
+    <capacity>
+        <totalCapacity>10000</totalCapacity> <!-- in square feet -->
+        <availableSpace>2500</availableSpace> <!-- in square feet -->
+    </capacity>
+    <contact>
+        <phone>(987) 654-3210</phone>
+        <email>warehouseA@storage.com</email>
+    </contact>
+    <status>Active</status>
+    <description>Warehouse A is a large storage facility equipped with climate control for sensitive items. It is centrally located to facilitate efficient distribution.</description>
+</storage>

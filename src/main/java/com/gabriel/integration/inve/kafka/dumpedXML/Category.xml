@@ -1,4 +1,33 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <category>
-    <name>Century Tuna</name>
+    <id>1</id>
+    <name>Canned Goods</name>
+    <description>Preserved food items that are sealed in cans or jars to extend shelf life. Commonly includes vegetables, fruits, meats, and soups.</description>
+    <items>
+        <item>
+            <id>101</id>
+            <name>Green Beans</name>
+            <brand>GreenFarm</brand>
+            <quantity>100</quantity>
+            <price>1.99</price>
+        </item>
+        <item>
+            <id>102</id>
+            <name>Tomato Soup</name>
+            <brand>SoupMaster</brand>
+            <quantity>150</quantity>
+            <price>2.49</price>
+        </item>
+        <item>
+            <id>103</id>
+            <name>Peaches</name>
+            <brand>FruitWorld</brand>
+            <quantity>80</quantity>
+            <price>2.99</price>
+        </item>
+    </items>
+    <attributes>
+        <attribute name="Shelf Life">2 years</attribute>
+        <attribute name="Storage Conditions">Store in a cool, dry place.</attribute>
+    </attributes>
 </category>

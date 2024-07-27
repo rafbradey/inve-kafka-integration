@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<supplier>
+    <id>1</id>
+    <name>Century Tuna Co.</name>
+    <address>
+        <street>1234 Tuna St.</street>
+        <city>Seafood City</city>
+        <state>Oceania</state>
+        <zip>56789</zip>
+        <country>Oceania</country>
+    </address>
+    <contact>
+        <phone>(123) 456-7890</phone>
+        <email>info@centurytuna.com</email>
+        <website>http://www.centurytuna.com</website>
+    </contact>
+    <products>
+        <product>
+            <id>101</id>
+            <name>Premium Tuna Can</name>
+            <description>High-quality tuna in a can, perfect for salads and sandwiches.</description>
+            <price>3.49</price>
+        </product>
+        <product>
+            <id>102</id>
+            <name>Light Tuna Can</name>
+            <description>Light tuna in oil, ideal for various recipes.</description>
+            <price>2.99</price>
+        </product>
+    </products>
+</supplier>

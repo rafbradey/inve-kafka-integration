@@ -26,8 +26,7 @@ public class Scheduler {
         CategoryService category = new CategoryService();
        String port = category.getCategoryURL().toString();
 
-        System.out.println("This job is running every 10 seconds" +"\n " +
-                "Currently using:"+port);
+        System.out.println("This job is running every 10 seconds" +"\n ");
 
 
     }
