@@ -26,8 +26,10 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.text.SimpleDateFormat;
 import java.util.Arrays;
 import java.util.Comparator;
+import java.util.Date;
 import java.util.stream.Collectors;
 
 public class KafkaUI extends Application {
@@ -122,7 +124,7 @@ public class KafkaUI extends Application {
     }
 
     private String getSupportFilenameFromSelection(String selectedItem) {
-        // You may need to adjust this depending on your actual filename structure
+
         return selectedItem != null ? selectedItem.replace(".xml", "") : "Category";
     }
 
@@ -154,7 +156,8 @@ public class KafkaUI extends Application {
             int highestId = getHighestId(supportFilename);
 
             // Prepare notification message
-            message = "Added a value in " + supportFilename + " [Name: " + supportName + "] with ID " + highestId;
+            message = "!Notification from User! - New item added: " + supportFilename + " [Name: " + supportName + "] with ID " + highestId
+                    + "at " + new SimpleDateFormat("dd-MM-yyyy HH:mm:ss.SSS").format(new Date());
 
             connection.disconnect();
         } catch (Exception e) {
@@ -191,16 +194,16 @@ public class KafkaUI extends Application {
                     .lines().collect(Collectors.joining("\n"));
 
             // Print the response for debugging
-            System.out.println("Response from GET request:");
-            System.out.println(response);
+          //  System.out.println("Response from GET request:");
+         //   System.out.println(response);
 
             // Parse JSON response
             ObjectMapper mapper = new ObjectMapper();
             JsonNode root = mapper.readTree(response);
 
             // Print JSON tree for debugging
-            System.out.println("Parsed JSON:");
-            System.out.println(root.toPrettyString());
+          //  System.out.println("Parsed JSON:");
+          //  System.out.println(root.toPrettyString());
 
             // Assuming the response is a JSON array
             int highestId = 0;
