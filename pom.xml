@@ -103,7 +103,7 @@
                 <artifactId>exec-maven-plugin</artifactId>
                 <version>3.0.0</version>
                 <configuration>
-                    <mainClass>com.example.inveintegration.SendKafkaNotifApp</mainClass>
+                    <mainClass>com.gabriel.integration.inve.Main</mainClass>
                     <commandlineArgs>8080</commandlineArgs>
                 </configuration>
             </plugin>

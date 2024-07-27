@@ -20,7 +20,7 @@ public class Scheduler {
                 "Cron job Scheduler: Job running at - "
                         + strDate);
 
-        System.out.println("This job is running every 10 seconds");
+        System.out.println("This job is running every 10 seconds" +"\n current Port is" + System.getProperty("server.port"));
 
 
     }

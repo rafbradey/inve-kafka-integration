@@ -10,6 +10,8 @@ import org.springframework.http.converter.json.MappingJackson2HttpMessageConvert
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -20,12 +22,20 @@ import java.util.List;
 @Slf4j
 public class InventoryService {
 
-	@Setter
+	@Setter @Getter
 	String port;
 
 	@Getter
+	URL url = new URL("http://localhost:8080/api/inventory");
+
+
+	@Getter
 	protected static InventoryService service= null;
-	public static InventoryService getService(String port){
+
+    public InventoryService() throws MalformedURLException {
+    }
+
+    public static InventoryService getService(String port) throws MalformedURLException {
 		if(service == null){
 			service = new InventoryService();
 			service.port = port;
