@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <category>
     <id>1</id>
-    <name>Canned Goods</name>
+    <name>Clothes</name>
     <description>Preserved food items that are sealed in cans or jars to extend shelf life. Commonly includes vegetables, fruits, meats, and soups.</description>
     <items>
         <item>

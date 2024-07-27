@@ -14,11 +14,10 @@ public class KafkaMessageController
 
     @Autowired
     KafkaProducer kafkaProducerService;
-    @PutMapping("api/product")
     public String publishMessage()
     {
         String message = "";
         kafkaProducerService.sendNotification(message);
-        return "Successfully Published the Category to the ProductTopic";
+        return "Success";
     }
 }

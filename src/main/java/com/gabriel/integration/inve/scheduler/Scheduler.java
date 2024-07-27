@@ -32,7 +32,7 @@ public class Scheduler {
         this.kafkaProducer = kafkaProducer;
     }
 
-    @Scheduled(cron = "*/30 * * * * *") // 30 seconds
+    @Scheduled(cron = "*/15 * * * * *") // Send Notif per 15 seconds
     public void scheduleTask() throws MalformedURLException {
         SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss.SSS");
         String strDate = dateFormat.format(new Date());
@@ -41,14 +41,14 @@ public class Scheduler {
 
         CategoryService categoryService = new CategoryService();
         String port = categoryService.getCategoryURL().toString();
-        //System.out.println("Currently using: " + port);
+        //--for debuggingSystem.out.println("Currently using: " + port);
 
         processXMLFiles();
     }
 
     private void processXMLFiles() {
         try {
-            Files.list(Paths.get("src/main/java/com/gabriel/integration/inve/kafka/dumpedXML"))
+            Files.list(Paths.get("src/main/java/com/gabriel/integration/inve/kafka/dumped_FROM_ERP_XML"))
                     .filter(Files::isRegularFile)
                     .forEach(file -> {
                         try {
@@ -64,8 +64,8 @@ public class Scheduler {
                                 existingNames.add(supportName);
 
                                 // Send a notification to Kafka
-                                String message = "!Notification from Scheduler - New item added: " + supportFilename + " [Name: " + supportName + "] "
-                                        + " at " + new SimpleDateFormat("dd-MM-yyyy HH:mm:ss.SSS").format(new Date());
+                                String message = "!!!Notification received from Scheduler - New item added: " + supportFilename + " [Name: " + supportName + "] "
+                                        + " Received at: " + new SimpleDateFormat("dd-MM-yyyy HH:mm:ss.SSS").format(new Date());
                                 kafkaProducer.sendNotification(message);
 
                                 // Print a message to System.out

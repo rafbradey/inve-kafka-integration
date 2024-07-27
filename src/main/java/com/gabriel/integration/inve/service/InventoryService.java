@@ -26,7 +26,10 @@ public class InventoryService {
 	String port;
 
 	@Getter
-	static URL categoryURL;
+	static URL inventoryURL;
+
+	@Getter
+	static String inventoryPort;
 
 
 	@Getter
@@ -39,7 +42,8 @@ public class InventoryService {
 		if(service == null){
 			service = new InventoryService();
 			service.port = port;
-			categoryURL = new URL("http://localhost:" + port + "/api/inventory");
+			inventoryURL = new URL("http://localhost:" + port + "/api/inventory");
+			inventoryPort = port;
 		}
 		return service;
 	}

@@ -1,6 +1,6 @@
 package com.gabriel.integration.inve;
 
-import com.gabriel.integration.inve.kafka.KafkaUI;
+import com.gabriel.integration.inve.kafka.KAFKA_NOTIFICATION_UI;
 import com.gabriel.integration.inve.service.InventoryService;
 import com.gabriel.integration.inve.service.CategoryService;
 import javafx.application.Application;
@@ -11,7 +11,7 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 
 @SpringBootApplication
 @EnableScheduling
-public class Main {
+public class MainApp {
 
     public static void main(String[] args) {
         if (args.length < 1) {
@@ -21,7 +21,7 @@ public class Main {
         String port = args[0];
         System.out.println("Starting application with port: " + port);
 
-        ConfigurableApplicationContext context = SpringApplication.run(Main.class, args);
+        ConfigurableApplicationContext context = SpringApplication.run(MainApp.class, args);
 
         try {
             InventoryService.getService(port);
@@ -35,8 +35,8 @@ public class Main {
         // Start the JavaFX application on a new thread
         new Thread(() -> {
             try {
-                KafkaUI.setContext(context); // Pass the Spring context to KafkaUI
-                Application.launch(KafkaUI.class, args); // Launch JavaFX application
+                KAFKA_NOTIFICATION_UI.setContext(context); // Pass the Spring context to KAFKA_NOTIFICATION_UI
+                Application.launch(KAFKA_NOTIFICATION_UI.class, args); // Launch JavaFX application
             } catch (Exception e) {
                 e.printStackTrace();
             }
