@@ -117,6 +117,8 @@ public class KafkaUI extends Application {
         mainVBox.setAlignment(Pos.CENTER);
         mainVBox.getChildren().addAll(hbox, sendButton);
 
+
+
         Scene scene = new Scene(mainVBox, 400, 600);
         primaryStage.setTitle("Kafka UI");
         primaryStage.setScene(scene);
@@ -157,7 +159,7 @@ public class KafkaUI extends Application {
 
             // Prepare notification message
             message = "!Notification from User! - New item added: " + supportFilename + " [Name: " + supportName + "] with ID " + highestId
-                    + "at " + new SimpleDateFormat("dd-MM-yyyy HH:mm:ss.SSS").format(new Date());
+                    + " at " + new SimpleDateFormat("dd-MM-yyyy HH:mm:ss.SSS").format(new Date());
 
             connection.disconnect();
         } catch (Exception e) {
