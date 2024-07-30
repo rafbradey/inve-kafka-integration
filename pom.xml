@@ -7,8 +7,8 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>3.3.0</version> <!-- Use a Spring Boot version compatible with Kafka 3.2.2 -->
-        <relativePath/> <!-- Lookup parent from repository -->
+        <version>3.3.0</version>
+        <relativePath/>
     </parent>
 
     <groupId>com.example</groupId>
@@ -25,13 +25,11 @@
     </properties>
 
     <dependencies>
-        <!-- Spring Boot Starter Web for building REST APIs -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
 
-        <!-- JavaFX dependencies -->
         <dependency>
             <groupId>org.openjfx</groupId>
             <artifactId>javafx-controls</artifactId>
@@ -42,15 +40,12 @@
             <artifactId>javafx-fxml</artifactId>
             <version>${javafx.version}</version>
         </dependency>
-
-        <!-- Jackson XML for XML serialization -->
         <dependency>
             <groupId>com.fasterxml.jackson.dataformat</groupId>
             <artifactId>jackson-dataformat-xml</artifactId>
             <version>${jackson-xml.version}</version>
         </dependency>
 
-        <!-- Lombok -->
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
@@ -58,14 +53,12 @@
             <scope>provided</scope>
         </dependency>
 
-        <!-- Spring Kafka for Kafka producer and consumer support -->
         <dependency>
             <groupId>org.springframework.kafka</groupId>
             <artifactId>spring-kafka</artifactId>
             <version>3.2.2</version>
         </dependency>
 
-        <!-- Kafka Clients -->
         <dependency>
             <groupId>org.apache.kafka</groupId>
             <artifactId>kafka-clients</artifactId>
